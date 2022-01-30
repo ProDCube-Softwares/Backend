@@ -102,8 +102,6 @@ celerybeat.pid
 *.sage.py
 
 # Environments
-.env
-.env.development
 .venv
 env/
 venv/
@@ -131,4 +129,8 @@ dmypy.json
 
 .idea
 .vscode
-.gitignore
+
+
+config.env
+development.env
+production.env

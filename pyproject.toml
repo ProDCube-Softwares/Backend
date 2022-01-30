@@ -1,26 +1,32 @@
 [tool.poetry]
 name = "backend"
-version = "0.1.0"
-description = ""
+version = "1.0.0"
+description = "ProDCube Backend"
 authors = ["ProDCube <prodcube@prodcube.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.10"
 fastapi = "^0.73.0"
 uvicorn = "^0.17.1"
+beanie = "^1.8.12"
+loguru = "^0.6.0"
+motor = "^2.5.1"
+pydantic = {extras = ["dotenv"], version = "^1.9.0"}
+python-dotenv = "^0.19.2"
+Jinja2 = "^3.0.3"
 
 [tool.poetry.dev-dependencies]
 pylint = "^2.12.2"
 pylint-quotes = "^0.2.3"
 isort = "^5.10.1"
 
-
-[build-system]
-requires = ["poetry-core>=1.0.0"]
-build-backend = "poetry.core.masonry.api"
-
 [tool.isort]
 indent = 4
 src_paths = ["./"]
 skip_gitignore = true
 combine_as_imports = true
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+

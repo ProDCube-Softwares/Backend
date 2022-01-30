@@ -1,19 +1,20 @@
 from functools import lru_cache
-from typing import Dict, Type
+from typing import Type, Dict
 
-from Config.AppSettings import AppSettings
-from Config.DevelopmentSettings import DevelopmentSettings
-from Config.ProductionSettings import ProductionSettings
+from Config.AppConfig import AppConfig
+from Config.DevelopmentConfig import DevelopmentConfig
+from Config.ProductionConfig import ProductionConfig
 from Constants import EnvTypes
+from Utils.Environment import Environment
 
-environments: Dict[EnvTypes, Type[AppSettings]] = {
-    EnvTypes.PROD: ProductionSettings,
-    EnvTypes.DEV: DevelopmentSettings,
+environments: Dict[EnvTypes, Type[AppConfig]] = {
+    EnvTypes.PROD: ProductionConfig,
+    EnvTypes.DEV: DevelopmentConfig,
 }
 
 
 @lru_cache()
-def generateSettings() -> AppSettings:
-    env = DevelopmentSettings().ENV
-    config = environments[env]
+def generateSettings() -> AppConfig:
+    currentEnv = Environment.getSettingsByEnvironment()
+    config = environments[currentEnv]
     return config()

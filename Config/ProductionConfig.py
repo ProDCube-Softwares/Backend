@@ -1,6 +1,6 @@
-from Config.AppSettings import AppSettings
+from Config.AppConfig import AppConfig
 
 
-class ProductionSettings(AppSettings):
+class ProductionConfig(AppConfig):
     class Config:
         env_file = "production.env"

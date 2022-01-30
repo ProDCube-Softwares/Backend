@@ -1,14 +1,13 @@
 import logging
 from typing import Any, Dict, List, Optional
 
-from Config.BaseSettings import BaseAppSettings
-from Constants import Constants
+from pydantic import BaseSettings
+
+# from Config.BaseConfig import BaseAppSettings
+from Constants import Constants, EnvTypes
 
 
-# from pydantic import BaseSettings
-
-
-class AppSettings(BaseAppSettings):
+class AppConfig(BaseSettings):
     debug: bool = False
     title: str = Constants.productionTitle
     version: str = Constants.version
@@ -19,10 +18,10 @@ class AppSettings(BaseAppSettings):
     databaseUrl: str
     databasePort: Optional[str]
 
-    # ENV: EnvTypes = EnvTypes.PROD
+    ENV: EnvTypes = EnvTypes.PROD
 
     class Config:
-        # env_file = "production.env"
+        env_file = "production.env"
         validate_assignment = True
 
     @property

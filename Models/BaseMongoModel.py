@@ -1,11 +1,11 @@
 from datetime import datetime
 
-from beanie import Document
+from beanie import Document, Insert, before_event
 
 
 class BaseMongoModel(Document):
-    createdAt: datetime
+    createdAt: datetime = ""
 
-    @classmethod
-    def autoAddDate(cls):
-        self.
+    @before_event(Insert)
+    def autoAddDate(self):
+        self.createdAt = datetime.now()

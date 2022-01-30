@@ -1,10 +1,10 @@
 import logging
 
-from Config.AppSettings import AppSettings
+from Config.AppConfig import AppConfig
 from Constants import Constants, EnvTypes
 
 
-class DevelopmentSettings(AppSettings):
+class DevelopmentConfig(AppConfig):
     debug = True
     title = Constants.developmentTitle
     description = Constants.developmentDescription

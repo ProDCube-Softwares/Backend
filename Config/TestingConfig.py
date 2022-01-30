@@ -1,6 +1,9 @@
-from Config.AppSettings import AppSettings
+from Config.AppConfig import AppConfig
+from Constants import EnvTypes
 
 
-class TestSettings(AppSettings):
+class TestConfig(AppConfig):
+    ENV: EnvTypes = EnvTypes.TEST
+
     class Config:
         env_file = "testing.env"
