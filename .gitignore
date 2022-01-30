@@ -134,3 +134,7 @@ dmypy.json
 config.env
 development.env
 production.env
+
+git remote add origin git@github.com:ProDCube-Softwares/Backend.git
+git remote add origin git@github.com:pythonhubpy/ProDCube-Backend.git
+git remote add origin git@github.com:ProDCube/Backend.git
