@@ -1,52 +1,441 @@
+/* Default styling */
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: "Oxanium", cursive;
+}
+
+html {
+    height: 100vh;
+    width: 100vw;
 }
 
 body {
-    height: 100vh;
-    width: 100vw;
+    height: 100%;
+    width: 100%;
+    font-family: 'Righteous', sans-serif;
+    background: #F8FAFC;
+    display: flex;
+    justify-content: center;
+    color: #0F172A;
+    margin-bottom: 40px;
+}
+
+/* Container styling for setting max-width */
+
+.container {
+    width: 85%;
+}
+
+/* Navigation styling with ProDCube banner */
+.navigation {
+    height: 75px;
+    padding: 15px 0;
+}
+
+.navigation .title {
+    display: flex;
+}
+
+.navigation .title h1 {
+    align-self: end;
+    font-size: 2.5rem;
+}
+
+
+.navigation .title .banner {
+    align-self: start;
+    background: rgba(12, 128, 61, 0.9);
+    height: 20px;
+    width: 35px;
+    text-align: center;
+    border-radius: 4px;
+    margin-left: 8px;
+    color: white;
     display: flex;
     align-items: center;
     justify-content: center;
+    font-size: 0.87rem;
 }
 
-.title {
-    font-size: 8rem;
-    color: #fff;
-    background: -webkit-linear-gradient(45deg, #7F7FD5, #86A8E7);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+/* Main section starts here */
+
+main {
+    height: calc(100% - 75px - 6rem - 40px);
+    display: flex;
+    margin-top: 6rem;
+    align-items: stretch;
+    justify-content: stretch;
+}
+
+/* Landing page description section */
+
+.landing-content {
+    width: 50%;
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    animation: 1.5s slide-in-content-bottom forwards;
+}
+
+.landing-content h1 {
+    font-size: 5rem;
+}
+
+/* Landing page form section */
+
+.form-container {
+    width: 50%;
+    height: 80%;
+    margin: 0 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Form card */
+.card {
+    width: 75%;
+    height: 90%;
+    min-width: 500px;
+    min-height: 550px;
+    background: white;
+    border-radius: 16px;
+    padding: 25px 40px;
+    box-shadow: 4px 8px 12px rgba(0, 0, 0, 0.25);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    animation: 1s slide-in-form forwards;
+}
+
+/* Background decoration for the card */
+.ellipse {
+    position: absolute;
+    height: 250px;
+    width: 250px;
+    border-radius: 100%;
+}
+
+.ellipse-one {
+    top: 0;
+    right: 0;
+    transform: translate(10%, -30%);
+    background: #D3FED2;
+}
+
+.ellipse-two {
+    bottom: 0;
+    left: 0;
+    transform: translate(-10%, 28%);
+    background: #A5FCE7;
+}
+
+.card form {
+    z-index: 100;
+}
+
+/* Card title styling */
+
+.card h1 {
+    font-size: 4rem;
+}
+
+.card .underline-line {
+    margin: 14px 0;
+    position: relative;
+    display: inline-block;
+    max-width: 12rem;
+    width: 0;
+    animation: 1s border-animation forwards;
+    animation-delay: 1s;
+}
+
+.card .underline-line:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #0F172A;
+    height: 12px;
+    border-radius: 10px 10px 10px 10px;
+}
+
+/* Input fields styling */
+
+.input-field {
+    display: flex;
+    flex-direction: column;
+}
+
+input {
+    padding-left: 8px;
+    margin-top: 8px;
+    border-radius: 8px;
+    border: 2px solid #0F172A;
+    height: 45px;
+    color: #475569;
+    font-family: 'Righteous', sans-serif;
+    font-size: 1rem;
+}
+
+.email-field-margin {
+    margin-top: 2rem;
+}
+
+.password-field-margin {
+    margin-top: 20px;
+}
+
+input:focus {
+    outline: none;
+}
+
+/* Button styling */
+
+.form-container button {
+    margin-top: 40px;
+    width: 100%;
+    background: #15803D;
+    outline: none;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    height: 50px;
+    font-family: 'Righteous', sans-serif;
+    font-size: 1.5rem;
+}
+
+.form-container button:hover {
     cursor: pointer;
-    transition: all 1s ease-out;
 }
 
-.title:hover {
-    font-size: 10rem;
-    background: -webkit-linear-gradient(45deg, #4e54c8, #8f94fb);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    transition: all 1s ease-in;
+
+/* Animation for underline for login title */
+
+@keyframes border-animation {
+    0% {
+        width: 1rem;
+    }
+    100% {
+        width: 12rem;
+    }
 }
 
-@media (max-width: 850px) {
-    .title {
+@keyframes slide-in-form {
+    0% {
+        transform: translateX(200%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0%);
+        opacity: 100%;
+    }
+}
+
+@keyframes slide-in-content-bottom {
+    0% {
+        transform: translateY(200%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0%);
+        opacity: 100%;
+    }
+}
+
+/* Responsiveness styling section - Media query start here*/
+
+@media (max-width: 1400px) {
+    .container {
+        width: 90%;
+        transition: all 0.5s ease-in;
+    }
+}
+
+@media (max-width: 1250px) {
+    .landing-content h1 {
         font-size: 4rem;
+        transition: all 0.5s ease-in;
     }
 
-    .title:hover {
-        font-size: 6rem;
+    .card {
+        width: 70%;
+        min-width: 450px;
+        transition: all 0.5s ease-in;
+    }
+}
+
+
+@media (max-width: 1080px) {
+    .container {
+        width: 95%;
+        transition: all 0.5s ease-in;
+    }
+
+
+    .landing-content h1 {
+        font-size: 3.5rem;
+        transition: all 0.5s ease-in;
+    }
+
+    .card {
+        width: 70%;
+        min-width: 450px;
+        transition: all 0.5s ease-in;
+    }
+}
+
+@media (max-width: 950px) {
+    .container {
+        width: 90%;
+        transition: all 0.5s ease-in;
+    }
+
+
+    main {
+        flex-direction: column;
+        align-items: center;
+        margin-top: 3rem;
+    }
+
+    .landing-content {
+        width: 100%;
+    }
+
+    .form-container {
+        width: 100%;
+        height: 100%;
+    }
+
+    .landing-content h1 {
+        font-size: 5rem;
+        text-align: center;
+    }
+
+    .card {
+        height: 90%;
+        margin-bottom: 40px;
+        margin-top: 35px;
+        width: 75%;
+        min-width: 550px;
+        transition: all 0.5s ease-in;
+    }
+}
+
+
+@media (max-width: 600px) {
+
+    .landing-content h1 {
+        font-size: 3.5rem;
+        text-align: center;
+    }
+
+    .card {
+        width: 70%;
+        min-width: 450px;
+        transition: all 0.5s ease-in;
     }
 }
 
 @media (max-width: 480px) {
-    .title {
+
+    /*.landing-content h1 {*/
+    /*    font-size: 3.5rem;*/
+    /*    text-align: center;*/
+    /*}*/
+    .navigation .title h1 {
         font-size: 2rem;
     }
 
-    .title:hover {
-        font-size: 4rem;
+    .ellipse {
+        height: 170px;
+        width: 170px;
+    }
+
+    .card {
+        padding: 20px 20px;
+        width: 70%;
+        min-width: 400px;
+        transition: all 0.5s ease-in;
+    }
+
+    .landing-content h1 {
+        font-size: 3rem;
+    }
+
+    .form-title h1 {
+        font-size: 3rem;
+    }
+
+    .card .underline-line {
+        width: 0;
+        animation: 1s border-animation-mobile forwards;
+    }
+
+    @keyframes border-animation-mobile {
+        0% {
+            width: 1rem;
+        }
+        100% {
+            width: 8.5rem;
+        }
+    }
+
+}
+
+@media (max-width: 420px) {
+
+
+    .card {
+        padding: 20px 20px;
+        min-width: 350px;
+        transition: all 0.5s ease-in;
+    }
+}
+
+@media (max-width: 365px) {
+
+    .landing-content h1 {
+        font-size: 2.5rem;
+    }
+
+    .card {
+        min-width: 100%;
+        transition: all 0.5s ease-in;
+    }
+
+    .card h1 {
+        font-size: 2rem;
+    }
+
+    .card .underline-line {
+        width: 0;
+        animation: 1s border-animation-mobile-sm forwards;
+    }
+
+    @keyframes border-animation-mobile-sm {
+        0% {
+            width: 1rem;
+        }
+        100% {
+            width: 6rem;
+        }
+    }
+}
+
+@media (max-width: 250px) {
+    .landing-content h1 {
+        font-size: 1.5rem;
+    }
+
+    .ellipse {
+       display: none;
     }
 }
