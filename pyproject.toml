@@ -9,11 +9,14 @@ python = "^3.10"
 fastapi = "^0.73.0"
 uvicorn = "^0.17.1"
 beanie = "^1.8.12"
-loguru = "^0.6.0"
 motor = "^2.5.1"
 pydantic = {extras = ["dotenv"], version = "^1.9.0"}
 python-dotenv = "^0.19.2"
 Jinja2 = "^3.0.3"
+python-multipart = "^0.0.5"
+passlib = "^1.7.4"
+python-jose = {extras = ["cryptography"], version = "^3.3.0"}
+bcrypt = "^3.2.0"
 
 [tool.poetry.dev-dependencies]
 pylint = "^2.12.2"

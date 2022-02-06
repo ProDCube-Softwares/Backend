@@ -17,7 +17,7 @@ class AppConfig(BaseSettings):
     description: str = Constants.productionDescription
     databaseUrl: str
     databasePort: Optional[str]
-
+    secretKey: str
     ENV: EnvTypes = EnvTypes.PROD
 
     class Config:

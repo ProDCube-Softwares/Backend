@@ -1,19 +1,25 @@
+import asyncio
 from pathlib import Path
 
-from fastapi import FastAPI, Request
+from fastapi import FastAPI
 from starlette.middleware.cors import CORSMiddleware
 from starlette.staticfiles import StaticFiles
 
-from Config import generateSettings
+from Config import generateSettings, AppConfig
 from Config.Events import Events
-from Utils import templates
+from Database import Connection
+from Utils import Utils
+from Views import internalLogin
+from Views import openApiDocRouter
 
 
 def createFastApp() -> FastAPI:
-    appSettings = generateSettings()
+    appSettings: AppConfig = generateSettings()
     events = Events(appSettings)
-
-    app = FastAPI(**appSettings.fastapiKwargs)
+    loop = asyncio.get_event_loop()
+    dataBase = Connection(host=appSettings.databaseUrl, port=int(appSettings.databasePort))
+    loop.create_task(dataBase.connect())
+    app: FastAPI = FastAPI(**appSettings.fastapiKwargs)
 
     app.add_middleware(
         CORSMiddleware,
@@ -24,12 +30,10 @@ def createFastApp() -> FastAPI:
     )
     app.add_event_handler("startup", events.createStartAppHandler())
     app.mount("/static", StaticFiles(directory=Path(__file__).parent / "Static/"), name="static")
+    app.include_router(openApiDocRouter)
     return app
 
 
 fastApp = createFastApp()
 
-
-@fastApp.get("/")
-async def home(request: Request):
-    return templates.TemplateResponse("index.html", {"request": request})
+Utils.updateSchemaName(app=fastApp, function=internalLogin, name="Internal User Login Schema")

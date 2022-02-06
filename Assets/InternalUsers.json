@@ -1,0 +1,26 @@
+[
+  {
+    "name": "Vetrichelvan",
+    "email": "vetrichelvan@producube.dev",
+    "password": "$2b$12$gNyFnFF6sVSPkzrIZQ2BTejg7O6s8P1bUkHTW6v0GvnVgupkQAay.",
+    "role": "admin"
+  },
+  {
+    "name": "Thiruvaran",
+    "email": "thiruvaran@producube.dev",
+    "password": "$2b$12$/o2KSp168H1xwt3OiTBGfeZUhW2LVfGZ3klLpJvaU.fuI7Q3O5LAO",
+    "role": "admin"
+  },
+  {
+    "name": "Vignesh",
+    "email": "vignesh@producube.dev",
+    "password": "$2b$12$EaOe14x4FEkmS12RnqO1fu2QSphovqZTxc2NEzBwdL1UB2b5GpNh.",
+    "role": "admin"
+  },
+  {
+    "name": "Atchaya",
+    "email": "atchaya@producube.dev",
+    "password": "$2b$12$boqLtMNeWozws2tjTG2LMeSQp6KNrwuo87Bd3NLNo9tJDyHJU4HjW",
+    "role": "admin"
+  }
+]
