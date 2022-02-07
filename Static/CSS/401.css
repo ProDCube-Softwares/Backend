@@ -1,0 +1,36 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    height: 100vh;
+    width: 100vw;
+}
+
+body {
+    height: 100%;
+    width: 100%;
+    font-family: 'Righteous', sans-serif;
+    background: #F8FAFC;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: #0F172A;
+    align-items: center;
+    text-align: center;
+}
+
+
+.title {
+    font-size: 8rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.desc {
+    font-size: 2rem;
+
+}

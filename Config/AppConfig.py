@@ -3,7 +3,6 @@ from typing import Any, Dict, List, Optional
 
 from pydantic import BaseSettings
 
-# from Config.BaseConfig import BaseAppSettings
 from Constants import Constants, EnvTypes
 
 
@@ -18,6 +17,9 @@ class AppConfig(BaseSettings):
     databaseUrl: str
     databasePort: Optional[str]
     secretKey: str
+    openapi_url: str = None
+    docs_url: str = None
+    redoc_url: str = None
     ENV: EnvTypes = EnvTypes.PROD
 
     class Config:
@@ -31,4 +33,7 @@ class AppConfig(BaseSettings):
             "title": self.title,
             "version": self.version,
             "contact": self.contact,
+            "openapi_url": self.openapi_url,
+            "docs_url": self.docs_url,
+            "redoc_url": self.redoc_url,
         }
