@@ -3,6 +3,7 @@ from fastapi import APIRouter, Request, Response, Depends
 from starlette import status
 from starlette.responses import RedirectResponse
 
+from Controller import openApiController
 from Models import ITULoginRequestModel, InternalUserModel
 from Utils import logger, templates, JWT
 
@@ -12,10 +13,10 @@ openApiDocRouter = APIRouter(tags=["OpenAPI Specifications"])
 @openApiDocRouter.post("/internalLogin", name="Internal Login")
 async def internalLogin(request: Request, response: Response,
                         loginData: ITULoginRequestModel = Depends(ITULoginRequestModel.asForm)):
-    logger.info(message="Entered internalLogin view", fileName="App.py", functionName="InternalLogin")
+    logger.info(message="Entered Internal Login view", fileName="App.py", functionName="InternalLogin")
     try:
         user: InternalUserModel = await InternalUserModel.find_one(InternalUserModel.email == loginData.email)
-        if user is not None and user.verifyPassword(loginData.password):
+        if await openApiController(loginData=loginData, response=response):
             logger.info(message="Login successful", fileName="App.py", functionName="InternalLogin")
             payload = {"name": user.name, "email": user.email, "role": user.role}
             token = JWT.encodeToken(payload=payload)
