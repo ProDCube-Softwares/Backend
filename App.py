@@ -6,12 +6,14 @@ from fastapi import FastAPI, Request, Depends
 from fastapi.openapi.docs import get_swagger_ui_html, get_redoc_html
 from fastapi.openapi.utils import get_openapi
 from starlette.middleware.cors import CORSMiddleware
+from starlette.responses import RedirectResponse
 from starlette.staticfiles import StaticFiles
 
 from Config import generateSettings, AppConfig
 from Config.Events import Events
 from Database import Connection
 from Utils import Utils, logger, templates
+from Views import contactUsRouter, contactUs
 from Views import internalLogin
 from Views import openApiDocRouter
 
@@ -35,6 +37,7 @@ def createFastApp() -> List[FastAPI | AppConfig]:
     app.add_event_handler("startup", events.createStartAppHandler())
     app.mount("/static", StaticFiles(directory=Path(__file__).parent / "Static/"), name="static")
     app.include_router(openApiDocRouter)
+    app.include_router(contactUsRouter)
     return [app, appSettings]
 
 
@@ -49,31 +52,45 @@ def getCookies(request: Request) -> str:
     return cookies
 
 
-@fastApp.get("/docs", tags=["OpenAPI Specifications"])
+@fastApp.get("/", name="Home", tags=["Home"])
+def home(request: Request):
+    logger.info(message="Home page view", fileName="App.py", functionName="Home")
+    token = getCookies(request=request)
+    if token is not None and len(token) != 0:
+        logger.info(message="Exited Home page view and Redirected", fileName="App.py", functionName="Home")
+        return RedirectResponse("/docs")
+    return templates.TemplateResponse("index.html", {"request": request})
+
+
+@fastApp.get("/docs", name="Get Documentation", tags=["OpenAPI Specifications"])
 async def getDocumentation(request: Request, token: str = Depends(getCookies)):
     if token is not None and len(token) != 0:
         logger.info(message="Getting documentation", functionName="Get Documentation", fileName="App.py")
         return get_swagger_ui_html(openapi_url="/openapi.json", title=settings.title)
     else:
+        logger.error(message="Un Authorized or Error Occurred", functionName="Get ReDoc", fileName="App.py")
         return templates.TemplateResponse("401.html", {"request": request})
 
 
-@fastApp.get("/openapi.json", tags=["OpenAPI Specifications"])
+@fastApp.get("/openapi.json", name="Get OpenAPI json", tags=["OpenAPI Specifications"])
 async def getOpenApi(request: Request, token: str = Depends(getCookies)):
     if token is not None and len(token) != 0:
         logger.info(message="Getting OpenAPI", functionName="Get OpenAPI", fileName="App.py")
         return get_openapi(title=settings.title, version="1.0.0", routes=fastApp.routes)
     else:
+        logger.error(message="Un Authorized or Error Occurred", functionName="Get ReDoc", fileName="App.py")
         return templates.TemplateResponse("401.html", {"request": request})
 
 
-@fastApp.get("/redoc", tags=["OpenAPI Specifications"])
+@fastApp.get("/redoc", name="Get ReDoc", tags=["OpenAPI Specifications"])
 async def getRedoc(request: Request, token: str = Depends(getCookies)):
     if token is not None and len(token) != 0:
         logger.info(message="Getting ReDoc", functionName="Get ReDoc", fileName="App.py")
         return get_redoc_html(openapi_url="/openapi.json", title=settings.title)
     else:
+        logger.error(message="Un Authorized or Error Occurred", functionName="Get ReDoc", fileName="App.py")
         return templates.TemplateResponse("401.html", {"request": request})
 
 
 Utils.updateSchemaName(app=fastApp, function=internalLogin, name="Internal User Login Schema")
+Utils.updateSchemaName(app=fastApp, function=contactUs, name="Contact Us Schema")

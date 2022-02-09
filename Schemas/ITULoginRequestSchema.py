@@ -2,7 +2,7 @@ import pydantic
 from fastapi import Form
 
 
-class ITULoginRequestModel(pydantic.BaseModel):
+class ITULoginRequestSchema(pydantic.BaseModel):
     email: str
     password: str
 
@@ -11,5 +11,5 @@ class ITULoginRequestModel(pydantic.BaseModel):
             cls,
             email: str = Form(...),
             password: str = Form(...)
-    ) -> "ITULoginRequestModel":
+    ) -> "ITULoginRequestSchema":
         return cls(email=email, password=password)

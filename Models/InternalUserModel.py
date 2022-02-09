@@ -17,7 +17,7 @@ class InternalUserModel(Document):
         return passwordContext.verify(password, self.password)
 
     class Collection:
-        name = "InternalUsers"
+        name = "Internal Users"
 
     class Config:
         arbitrary_types_allowed = True
