@@ -4,11 +4,11 @@ from email.mime.text import MIMEText
 
 from beanie.exceptions import DocumentAlreadyCreated
 from httpx import AsyncClient, HTTPStatusError
-from jinja2 import FileSystemLoader, Environment
+from jinja2 import Environment, FileSystemLoader
 
 from Database import ContactUsDb
 from Schemas import ContactUsRequestSchema
-from Utils import logger, envSettings
+from Utils import envSettings, logger
 
 
 class ContactUsController:
