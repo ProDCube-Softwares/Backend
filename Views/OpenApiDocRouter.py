@@ -1,5 +1,5 @@
 from beanie.exceptions import DocumentNotFound
-from fastapi import APIRouter, Request, Depends
+from fastapi import APIRouter, Depends, Request
 from starlette import status
 from starlette.responses import RedirectResponse
 

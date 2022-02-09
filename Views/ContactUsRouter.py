@@ -18,7 +18,7 @@ async def contactUs(contactUsData: ContactUsRequestSchema):
         response = await ContactUsController.getLocation()
         contactUsData.country = response["country"]
         contactUsData.region = response["region"]
-        await ContactUsController.saveAndNotify(contactUsData)
+        await ContactUsController().saveAndNotify(contactUsData)
         return JSONResponse(status_code=200,
                             content={"status": "Success", "message": "Message has been sent successfully"})
     except DocumentAlreadyCreated as documentAlreadyCreated:

@@ -2,20 +2,18 @@ import asyncio
 from pathlib import Path
 from typing import List
 
-from fastapi import FastAPI, Request, Depends
-from fastapi.openapi.docs import get_swagger_ui_html, get_redoc_html
+from fastapi import Depends, FastAPI, Request
+from fastapi.openapi.docs import get_redoc_html, get_swagger_ui_html
 from fastapi.openapi.utils import get_openapi
 from starlette.middleware.cors import CORSMiddleware
 from starlette.responses import RedirectResponse
 from starlette.staticfiles import StaticFiles
 
-from Config import generateSettings, AppConfig
+from Config import AppConfig, generateSettings
 from Config.Events import Events
 from Database import Connection
 from Utils import Utils, logger, templates
-from Views import contactUsRouter, contactUs
-from Views import internalLogin
-from Views import openApiDocRouter
+from Views import contactUs, contactUsRouter, internalLogin, openApiDocRouter
 
 
 def createFastApp() -> List[FastAPI | AppConfig]:

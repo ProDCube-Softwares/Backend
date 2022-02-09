@@ -1,9 +1,9 @@
 from datetime import datetime, timedelta
 
-from jose import jwt, JWTError
+from jose import JWTError, jwt
 
-from Utils.Environment import Environment
 from Utils.Logger import logger
+from .Environment import envSettings
 
 
 class JWTToken:
@@ -28,4 +28,4 @@ class JWTToken:
             return jwtError
 
 
-JWT = JWTToken(secret=Environment.getSecretKey())
+JWT = JWTToken(secret=envSettings.secretKey)

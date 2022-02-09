@@ -1,2 +1,2 @@
-from .ContactUsRouter import contactUsRouter, contactUs
-from .OpenApiDocRouter import openApiDocRouter, internalLogin
+from .ContactUsRouter import contactUs, contactUsRouter
+from .OpenApiDocRouter import internalLogin, openApiDocRouter

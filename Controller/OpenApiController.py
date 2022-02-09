@@ -4,7 +4,7 @@ from beanie.exceptions import DocumentNotFound
 
 from Database import internalUserDb
 from Schemas import ITULoginRequestSchema
-from Utils import logger, JWT
+from Utils import JWT, logger
 
 
 class OpenApiController:

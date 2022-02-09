@@ -20,6 +20,9 @@ class AppConfig(BaseSettings):
     openapi_url: str = None
     docs_url: str = None
     redoc_url: str = None
+    email: str
+    emailPassword: str
+    ipAccessKey: str
     ENV: EnvTypes = EnvTypes.PROD
 
     class Config:
