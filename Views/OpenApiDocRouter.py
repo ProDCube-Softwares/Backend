@@ -1,10 +1,9 @@
 from beanie.exceptions import DocumentNotFound
-from fastapi import APIRouter, Depends, Request
+from fastapi import APIRouter, Request, Form
 from starlette import status
 from starlette.responses import RedirectResponse
 
 from Controller import OpenApiController
-from Schemas import ITULoginRequestSchema
 from Utils import logger, templates
 
 openApiDocRouter = APIRouter(tags=["OpenAPI Specifications"])
@@ -12,10 +11,11 @@ openApiDocRouter = APIRouter(tags=["OpenAPI Specifications"])
 
 @openApiDocRouter.post("/internalLogin", name="Internal Login")
 async def internalLogin(request: Request,
-                        loginData: ITULoginRequestSchema = Depends(ITULoginRequestSchema.asForm)):
+                        email: str = Form(...),
+                        password: str = Form(...)):
     logger.info(message="Entered Internal Login view", fileName=__name__, functionName="InternalLogin")
     try:
-        res, token = await OpenApiController.internalLogin(loginData=loginData)
+        res, token = await OpenApiController.internalLogin(email=email, password=password)
         if res:
             redirectResponse = RedirectResponse(url="/docs", status_code=status.HTTP_303_SEE_OTHER)
             redirectResponse.set_cookie(key="token", value=token)
@@ -23,6 +23,6 @@ async def internalLogin(request: Request,
             return redirectResponse
         else:
             logger.info(message="Exited Internal Login view", fileName=__name__, functionName="InternalLogin")
-            return templates.TemplateResponse("401.html", {"request": request})
+            return templates.TemplateResponse("401.html", {"request": request}, status_code=404)
     except DocumentNotFound as documentNotFoundException:
         logger.error(message=documentNotFoundException, fileName=__name__, functionName="InternalLogin")

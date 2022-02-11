@@ -18,11 +18,11 @@ from Views import contactUs, contactUsRouter, internalLogin, openApiDocRouter
 
 def createFastApp() -> List[FastAPI | AppConfig]:
     appSettings: AppConfig = generateSettings()
-    events = Events(appSettings)
     dataBase = Connection(host=appSettings.databaseUrl, port=int(appSettings.databasePort))
+    events = Events(appSettings)
     loop = asyncio.new_event_loop()
     asyncio.set_event_loop(loop)
-    loop.run_until_complete(dataBase.connect())
+    loop.create_task(dataBase.connect())
     app: FastAPI = FastAPI(**appSettings.fastapiKwargs)
 
     app.add_middleware(
@@ -70,7 +70,7 @@ async def getDocumentation(request: Request, token: str = Depends(getCookies)):
         return get_swagger_ui_html(openapi_url="/openapi.json", title=settings.title)
     else:
         logger.error(message="Un Authorized or Error Occurred", functionName="Get ReDoc", fileName="App.py")
-        return templates.TemplateResponse("401.html", {"request": request})
+        return templates.TemplateResponse("401.html", {"request": request}, status_code=404)
 
 
 @fastApp.get("/openapi.json", name="Get OpenAPI json", tags=["OpenAPI Specifications"])
@@ -80,7 +80,7 @@ async def getOpenApi(request: Request, token: str = Depends(getCookies)):
         return get_openapi(title=settings.title, version="1.0.0", routes=fastApp.routes)
     else:
         logger.error(message="Un Authorized or Error Occurred", functionName="Get ReDoc", fileName="App.py")
-        return templates.TemplateResponse("401.html", {"request": request})
+        return templates.TemplateResponse("401.html", {"request": request}, status_code=404)
 
 
 @fastApp.get("/redoc", name="Get ReDoc", tags=["OpenAPI Specifications"])
@@ -90,7 +90,7 @@ async def getRedoc(request: Request, token: str = Depends(getCookies)):
         return get_redoc_html(openapi_url="/openapi.json", title=settings.title)
     else:
         logger.error(message="Un Authorized or Error Occurred", functionName="Get ReDoc", fileName="App.py")
-        return templates.TemplateResponse("401.html", {"request": request})
+        return templates.TemplateResponse("401.html", {"request": request}, status_code=404)
 
 
 Utils.updateSchemaName(app=fastApp, function=internalLogin, name="Internal User Login Schema")
