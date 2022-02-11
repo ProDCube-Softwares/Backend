@@ -19,9 +19,10 @@ from Views import contactUs, contactUsRouter, internalLogin, openApiDocRouter
 def createFastApp() -> List[FastAPI | AppConfig]:
     appSettings: AppConfig = generateSettings()
     events = Events(appSettings)
-    loop = asyncio.get_event_loop()
     dataBase = Connection(host=appSettings.databaseUrl, port=int(appSettings.databasePort))
-    loop.create_task(dataBase.connect())
+    loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop)
+    loop.run_until_complete(dataBase.connect())
     app: FastAPI = FastAPI(**appSettings.fastapiKwargs)
 
     app.add_middleware(
@@ -43,6 +44,7 @@ fastApp, settings = createFastApp()
 
 
 def getCookies(request: Request) -> str:
+    logger.info(message="Getting Cookies", fileName="App.py", functionName="getCookies")
     cookies: str = request.cookies.get("token")
     if cookies is None:
         logger.error(message="No token found", functionName="Get Cookies", fileName="App.py")
@@ -57,6 +59,7 @@ def home(request: Request):
     if token is not None and len(token) != 0:
         logger.info(message="Exited Home page view and Redirected", fileName="App.py", functionName="Home")
         return RedirectResponse("/docs")
+    logger.info(message="Exited Home page view - UnAuthorized", fileName="App.py", functionName="Home")
     return templates.TemplateResponse("index.html", {"request": request})
 
 

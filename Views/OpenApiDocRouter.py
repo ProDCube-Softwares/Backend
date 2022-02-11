@@ -19,8 +19,10 @@ async def internalLogin(request: Request,
         if res:
             redirectResponse = RedirectResponse(url="/docs", status_code=status.HTTP_303_SEE_OTHER)
             redirectResponse.set_cookie(key="token", value=token)
+            logger.info(message="Exited Internal Login view", fileName=__name__, functionName="InternalLogin")
             return redirectResponse
         else:
+            logger.info(message="Exited Internal Login view", fileName=__name__, functionName="InternalLogin")
             return templates.TemplateResponse("401.html", {"request": request})
     except DocumentNotFound as documentNotFoundException:
         logger.error(message=documentNotFoundException, fileName=__name__, functionName="InternalLogin")

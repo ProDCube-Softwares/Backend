@@ -6,9 +6,9 @@ authors = ["ProDCube <prodcube@prodcube.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.10"
-fastapi = "^0.73.0"
+fastapi = { extras = ["requests"], version = "^0.73.0" }
 uvicorn = "^0.17.4"
-beanie = "^1.8.12"
+beanie = "^1.8.13"
 motor = "^2.5.1"
 pydantic = { extras = ["dotenv"], version = "^1.9.0" }
 python-dotenv = "^0.19.2"
@@ -19,6 +19,8 @@ python-jose = { extras = ["cryptography"], version = "^3.3.0" }
 bcrypt = "^3.2.0"
 itsdangerous = "^2.0.1"
 httpx = "^0.22.0"
+pytest-cov = "^3.0.0"
+requests = "^2.27.1"
 
 [tool.poetry.dev-dependencies]
 pylint = "^2.12.2"
@@ -35,3 +37,10 @@ combine_as_imports = true
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
 
+[tool.pytest.ini_options]
+minversion = "6.0"
+testpaths = [
+    "Tests",
+]
+asyncio_mode = "strict"
+python_files = "Test*.py"

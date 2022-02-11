@@ -17,12 +17,14 @@ class JWTToken:
         payloadCopy = payload.copy()
         payloadCopy.update({"exp": expiry})
         generatedToken = jwt.encode(payloadCopy, self.secret, algorithm="HS256")
+        logger.info(message="Encoded JWT Token", fileName=__name__, functionName="EncodeToken")
         return generatedToken
 
     def decodeToken(self, token: str):
         logger.info(message="Decoding JWT Token...", fileName=__name__, functionName="DecodeToken")
         try:
             payload = jwt.decode(token, self.secret, algorithms=["HS256"])
+            logger.info(message="Decoded JWT Token", fileName=__name__, functionName="DecodeToken")
             return payload
         except JWTError as jwtError:
             logger.error(message=str(jwtError), fileName=__name__, functionName="DecodeToken")
