@@ -36,3 +36,5 @@ jobs:
         curl -Os https://uploader.codecov.io/latest/linux/codecov
         chmod +x codecov
         ./codecov
+    - name: Codecov
+      uses: codecov/codecov-action@v2.1.0

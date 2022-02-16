@@ -11,3 +11,4 @@ repos:
     rev: v2.12.2
     hooks:
       - id: pylint
+        args: [Config Constants Controller Database Models Schemas Tests Utils Views App]
