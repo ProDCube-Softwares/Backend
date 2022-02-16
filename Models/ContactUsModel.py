@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from mongoengine import Document, StringField, DateTimeField
+from mongoengine import DateTimeField, Document, StringField
 
 
 class ContactUsModel(Document):
