@@ -10,7 +10,7 @@ class Environment:
     @staticmethod
     def getSettingsByEnvironment() -> EnvTypes:
         with open("config.env", "r", encoding="utf-8") as configFile:
-            config = configFile.readlines()[0].split("=")[1].strip("\"")
+            config = configFile.readlines()[0].split("=")[1].strip("\"").strip()
             if config == "production":
                 return ProdConfig().ENV
             elif config == "testing":
