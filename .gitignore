@@ -131,7 +131,5 @@ dmypy.json
 .vscode
 
 
-config.env
-development.env
-production.env
+
 
