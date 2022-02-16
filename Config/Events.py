@@ -6,10 +6,10 @@ from Database.Connection import Connection
 
 class Events:
     def __init__(self, settings: AppConfig):
-        self.db = Connection(settings.databaseUrl, int(settings.databasePort))
+        self.db = Connection(databaseName="ProDCube", host=settings.databaseUrl, port=int(settings.databasePort))
 
     def createStartAppHandler(self) -> Callable:
         async def startApp() -> None:
-            await self.db.connect()
+            self.db.connect()
 
         return startApp

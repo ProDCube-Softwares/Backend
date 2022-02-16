@@ -1,4 +1,3 @@
-import asyncio
 from pathlib import Path
 from typing import List
 
@@ -11,20 +10,14 @@ from starlette.staticfiles import StaticFiles
 
 from Config import AppConfig, generateSettings
 from Config.Events import Events
-from Database import Connection
 from Utils import Utils, logger, templates
 from Views import contactUs, contactUsRouter, internalLogin, openApiDocRouter
 
 
 def createFastApp() -> List[FastAPI | AppConfig]:
     appSettings: AppConfig = generateSettings()
-    dataBase = Connection(host=appSettings.databaseUrl, port=int(appSettings.databasePort))
     events = Events(appSettings)
-    loop = asyncio.new_event_loop()
-    asyncio.set_event_loop(loop)
-    loop.create_task(dataBase.connect())
     app: FastAPI = FastAPI(**appSettings.fastapiKwargs)
-
     app.add_middleware(
         CORSMiddleware,
         allow_origins=appSettings.allowedHosts,

@@ -1,13 +1,9 @@
 import logging
 from logging import getLogger
 
-RESET_SEQ = "\033[0m"
-COLOR_SEQ = "\033[1;%dm"
-BOLD_SEQ = "\033[1m"
-
 
 class ColoredFormatter(logging.Formatter):
-    grey = "\x1b[38;21m"
+    # grey = "\x1b[38;21m"
     blue = "\x1b[38;5;39m"
     yellow = "\x1b[38;5;226m"
     red = "\x1b[38;5;196m"
@@ -18,7 +14,7 @@ class ColoredFormatter(logging.Formatter):
         super().__init__()
         self.fmt = fmt
         self.FORMATS = {
-            logging.DEBUG: self.grey + self.fmt + self.reset,
+            # logging.DEBUG: self.grey + self.fmt + self.reset,
             logging.INFO: self.blue + self.fmt + self.reset,
             logging.WARNING: self.yellow + self.fmt + self.reset,
             logging.ERROR: self.red + self.fmt + self.reset,

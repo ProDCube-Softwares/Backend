@@ -1,21 +1,14 @@
 from datetime import datetime
 
-from beanie import Document
+from mongoengine import Document, StringField, DateTimeField
 
 
 class ContactUsModel(Document):
-    name: str
-    email: str
-    message: str
-    country: str | None = None
-    region: str | None = None
-    createdAt: datetime | None = None
+    name = StringField(required=True)
+    email = StringField(required=True)
+    message = StringField(required=True)
+    country = StringField(required=True)
+    region = StringField(required=True)
+    createdAt = DateTimeField(default=datetime.utcnow)
 
-    def assignDate(self):
-        self.createdAt = datetime.now().utcnow()
-
-    class Config:
-        arbitrary_types_allowed = True
-
-    class Collection:
-        name = "Contact Us"
+    meta = {"collection": "Contact Us"}

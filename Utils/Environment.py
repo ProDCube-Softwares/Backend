@@ -1,6 +1,6 @@
 from Config import AppConfig
 from Config.DevelopmentConfig import DevelopmentConfig
-from Config.ProductionConfig import ProductionConfig
+from Config.ProdConfig import ProdConfig
 from Config.TestingConfig import TestConfig
 from Constants import EnvTypes
 from Constants.EnvironmentsDict import environments
@@ -12,7 +12,7 @@ class Environment:
         with open("config.env", "r", encoding="utf-8") as configFile:
             config = configFile.readlines()[0].split("=")[1].strip("\"")
             if config == "production":
-                return ProductionConfig().ENV
+                return ProdConfig().ENV
             elif config == "testing":
                 return TestConfig().ENV
             elif config == "development":

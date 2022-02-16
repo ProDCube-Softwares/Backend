@@ -2,9 +2,9 @@ import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
-from beanie.exceptions import DocumentAlreadyCreated
 from httpx import AsyncClient, HTTPStatusError
 from jinja2 import Environment, FileSystemLoader
+from mongoengine import SaveConditionError
 
 from Database import ContactUsDb
 from Schemas import ContactUsRequestSchema
@@ -78,5 +78,5 @@ class ContactUsController:
             logger.info(message="ContactUs Data saved successfully", fileName=__name__, functionName="Save")
             self.sendMailToUs(contactUsData)
             self.sendMailToCustomer(contactUsData)
-        except DocumentAlreadyCreated as docAlreadyCreated:
+        except SaveConditionError as docAlreadyCreated:
             logger.error(message=docAlreadyCreated, fileName=__name__, functionName="Contact Us Controller")

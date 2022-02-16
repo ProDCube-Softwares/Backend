@@ -1,23 +1,16 @@
-from beanie import Document
+from mongoengine import Document, StringField
 from passlib.context import CryptContext
 
 passwordContext = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 
 class InternalUserModel(Document):
-    name: str
-    email: str
-    password: str
-    role: str
-
-    def setPassword(self) -> None:
-        self.password = passwordContext.hash(self.password)
+    name = StringField(required=True)
+    email = StringField(required=True)
+    password = StringField(required=True)
+    role = StringField(default="Admin")
 
     def verifyPassword(self, password: str) -> bool:
         return passwordContext.verify(password, self.password)
 
-    class Collection:
-        name = "Internal Users"
-
-    class Config:
-        arbitrary_types_allowed = True
+    meta = {"collection": "Internal Users"}

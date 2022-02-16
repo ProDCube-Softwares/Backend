@@ -1,5 +1,5 @@
-from beanie.exceptions import DocumentNotFound
 from fastapi import APIRouter, Request, Form
+from mongoengine import DoesNotExist
 from starlette import status
 from starlette.responses import RedirectResponse
 
@@ -15,7 +15,7 @@ async def internalLogin(request: Request,
                         password: str = Form(...)):
     logger.info(message="Entered Internal Login view", fileName=__name__, functionName="InternalLogin")
     try:
-        res, token = await OpenApiController.internalLogin(email=email, password=password)
+        res, token = OpenApiController.internalLogin(email=email, password=password)
         if res:
             redirectResponse = RedirectResponse(url="/docs", status_code=status.HTTP_303_SEE_OTHER)
             redirectResponse.set_cookie(key="token", value=token)
@@ -24,5 +24,5 @@ async def internalLogin(request: Request,
         else:
             logger.info(message="Exited Internal Login view", fileName=__name__, functionName="InternalLogin")
             return templates.TemplateResponse("401.html", {"request": request}, status_code=404)
-    except DocumentNotFound as documentNotFoundException:
+    except DoesNotExist as documentNotFoundException:
         logger.error(message=documentNotFoundException, fileName=__name__, functionName="InternalLogin")
