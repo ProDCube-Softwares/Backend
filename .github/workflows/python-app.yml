@@ -27,7 +27,7 @@ jobs:
         if [ -f pyproject.toml ]; then poetry install; fi
     - name: Analysing the code with pylint
       run: |
-        pylint --msg-template=/{path}:{line}:{column}:{C}:({symbol}){msg} App Config Constants Database Models Services Utils Views
+        pylint $(git ls-files '*.py')
     - name: Test with pytest
       run: |
         pytest
