@@ -22,11 +22,12 @@ requests = "^2.27.1"
 trio = "^0.19.0"
 mongoengine = "^0.23.1"
 dnspython = "^2.2.0"
-
-[tool.poetry.dev-dependencies]
 pylint = "^2.12.2"
 pylint-quotes = "^0.2.3"
 isort = "^5.10.1"
+
+[tool.poetry.dev-dependencies]
+
 
 [tool.isort]
 indent = 4
