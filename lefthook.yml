@@ -1,0 +1,6 @@
+pre-commit:
+  commands:
+    pylint:
+      run: pylint Config Constants Controller Database Models Schemas Utils Views App
+    pytest:
+      run: pytest --cov=.
